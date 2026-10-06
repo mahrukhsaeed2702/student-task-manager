@@ -10,7 +10,15 @@
   <main class="container">
     <h1>Student Task Manager</h1>
     <p class="subtitle">Manage your study tasks easily.</p>
+    <form id="task-form" class="task-form">
+      <label for="task-title">Task Title</label>
+      <input type="text" id="task-title" placeholder="Enter task title" required>
 
+      <label for="task-description">Description</label>
+      <textarea id="task-description" placeholder="Enter task description" rows="3"></textarea>
+
+      <button type="submit" id="add-btn">Add Task</button>
+    </form>
     <section>
       <h2>My Tasks</h2>
       <div id="task-list">
