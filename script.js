@@ -53,7 +53,17 @@ function renderTasks() {
       deleteTask(task.id);
     });
     actions.appendChild(deleteBtn);
-    // COMPLETE BUTTON GOES HERE
+    if (task.completed) {
+      card.classList.add("completed");
+    }
+
+    const completeBtn = document.createElement("button");
+    completeBtn.className = "complete-btn";
+    completeBtn.textContent = task.completed ? "Undo" : "Complete";
+    completeBtn.addEventListener("click", function () {
+      toggleTask(task.id);
+    });
+    actions.appendChild(completeBtn);
 
     card.appendChild(info);
     card.appendChild(actions);
@@ -63,6 +73,14 @@ function renderTasks() {
 function deleteTask(id) {
   tasks = tasks.filter(function (task) {
     return task.id !== id;
+  });
+  renderTasks();
+}
+function toggleTask(id) {
+  tasks.forEach(function (task) {
+    if (task.id === id) {
+      task.completed = !task.completed;
+    }
   });
   renderTasks();
 }
