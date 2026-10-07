@@ -46,7 +46,13 @@ function renderTasks() {
     const actions = document.createElement("div");
     actions.className = "task-actions";
 
-    // DELETE BUTTON GOES HERE
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", function () {
+      deleteTask(task.id);
+    });
+    actions.appendChild(deleteBtn);
     // COMPLETE BUTTON GOES HERE
 
     card.appendChild(info);
@@ -54,5 +60,10 @@ function renderTasks() {
     taskList.appendChild(card);
   });
 }
-
+function deleteTask(id) {
+  tasks = tasks.filter(function (task) {
+    return task.id !== id;
+  });
+  renderTasks();
+}
 renderTasks();
