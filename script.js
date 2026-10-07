@@ -6,6 +6,7 @@ const form = document.getElementById("task-form");
 const titleInput = document.getElementById("task-title");
 const descInput = document.getElementById("task-description");
 const taskList = document.getElementById("task-list");
+const searchInput = document.getElementById("search-input");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -28,12 +29,20 @@ form.addEventListener("submit", function (event) {
 function renderTasks() {
   taskList.innerHTML = "";
 
-  if (tasks.length === 0) {
-    taskList.innerHTML = '<p class="empty">No tasks yet.</p>';
+  const query = searchInput.value.trim().toLowerCase();
+  const visibleTasks = tasks.filter(function (task) {
+    return (
+      task.title.toLowerCase().includes(query) ||
+      task.description.toLowerCase().includes(query)
+    );
+  });
+
+  if (visibleTasks.length === 0) {
+    taskList.innerHTML = '<p class="empty">No tasks found.</p>';
     return;
   }
 
-  tasks.forEach(function (task) {
+  visibleTasks.forEach(function (task) {
     const card = document.createElement("div");
     card.className = "task-card";
 
@@ -84,4 +93,5 @@ function toggleTask(id) {
   });
   renderTasks();
 }
+searchInput.addEventListener("input", renderTasks);
 renderTasks();
